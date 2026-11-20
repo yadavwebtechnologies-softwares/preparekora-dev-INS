@@ -1,0 +1,24 @@
+name = "preparekora-worker"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+workers_dev = true
+
+# ── D1 database (paste your actual ID after `wrangler d1 create preparekora`) ──
+[[d1_databases]]
+binding = "DB"
+database_name = "preparekora"
+database_id = "REPLACE_WITH_D1_ID"
+
+# ── R2 bucket (create once: `wrangler r2 bucket create preparekora-assets`) ──
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "preparekora-assets"
+
+# ── Cron: auto-reveal answers (runs every 15 minutes) ──
+[triggers]
+crons = ["*/15 * * * *"]
+
+# ── Public config (NOT secrets — safe to commit) ──
+[vars]
+BRAND = "PREPAREKORA"
+ENVIRONMENT = "production"
